@@ -16,7 +16,7 @@ export default class Home extends Component{
     render(){
         return(
             <Container>
-                <h2>2301957950 - Bunga Pramesti Savitri</h2>
+                <h2>Hello this is Login App from 2301957950 - Bunga Pramesti Savitri</h2>
                     <form>
                         <Button onClick={this.handleLogOut} variant="contained" color="primary">Logout</Button>
                     </form>

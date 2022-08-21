@@ -8,9 +8,6 @@ export default class SignUp extends Component{
         email:'',
         password: ''
     }
-    handleChangeField = (e) =>{
-        this.setState({[e.target.name]: e.target.value})
-    }
     handleSubmit = (e) =>{
         e.preventDefault();
         const {email, password} = this.state
@@ -29,6 +26,9 @@ export default class SignUp extends Component{
             alert(err.message)
         })
     }
+    handleChangeField = (e) =>{
+        this.setState({[e.target.name]: e.target.value})
+    }
     render(){
         const {email, password} = this.state
         return(
@@ -37,11 +37,11 @@ export default class SignUp extends Component{
                     <Grid xs="12" md="8" lg="4">
                         <h2>Sign Up</h2>
                         <form onSubmit={this.handleSubmit}>
-                            <TextField fullWidth type="email" margin="dense" variant="outlined" size="small" value={email} onChange={this.handleChangeField} name="email" label="Email" required />
-                            <TextField fullWidth type="password" margin="dense" variant="outlined" size="small" value={password} onChange={this.handleChangeField} name="password" label="Password" required />
+                            <TextField fullWidth type="email" margin="dense" size="small" value={email} onChange={this.handleChangeField} name="email" label="Email Address" required />
+                            <TextField fullWidth type="password" margin="dense" size="small" value={password} onChange={this.handleChangeField} name="password" label="Password" required />
                             <Button type="submit" fullWidth variant="contained" color="primary">Sign Up</Button>
                         </form>
-                        <p>Have an account? <Link to="/login">Login</Link></p>
+                        <p className="text-center">Have an account? <Link to="/login">Log in</Link></p>
                     </Grid>
                 </Grid>
             </Container>
