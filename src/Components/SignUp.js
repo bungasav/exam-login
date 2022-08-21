@@ -52,21 +52,28 @@ const SignUp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { email, password } = credential
-        firebaseAuthentication.createUserWithEmailAndPassword(email, password)
-            .then(res => {
-                firebaseAuthentication.currentUser.sendEmailVerification()
-                    .then(() => {
-                        handleOpen({title:"Success Registration",content:"please check email for verification",type:"success"})
-                    })
-                    .catch((error) => {
-                        handleOpen({title:"Failed Registration",content:error.message ,type:"failed"})
-                    })
-            })
-            .catch(err => {
-                handleOpen({title:"Failed Registration",content:err.message ,type:"failed"})
+        const { email, password } = credential;
+        const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-            })
+        if(!strongRegex.test(password)){
+            handleOpen({title:"Failed Registration",content : "Please must contain upper case, lower case, number, symbol with minimum 8 characters!",type:"failed"})
+        }
+        else{
+            firebaseAuthentication.createUserWithEmailAndPassword(email, password)
+                .then(res => {
+                    firebaseAuthentication.currentUser.sendEmailVerification()
+                        .then(() => {
+                            handleOpen({title:"Success Registration",content:"please check email for verification",type:"success"})
+                        })
+                        .catch((error) => {
+                            handleOpen({title:"Failed Registration",content:error.message ,type:"failed"})
+                        })
+                })
+                .catch(err => {
+                    handleOpen({title:"Failed Registration",content:err.message ,type:"failed"})
+
+                })
+        }
     }
     const handleChangeField = (e) => {
         setCredential((prev) => ({
